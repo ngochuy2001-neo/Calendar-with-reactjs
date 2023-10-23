@@ -21,17 +21,16 @@ const YellowSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 interface dayFormat {
-  date: number,
-  month: number,
-  year: number,
-  fullDate: string,
+  date: number;
+  month: number;
+  year: number;
+  fullDate: string;
 }
-
 
 export default function Home() {
   const [isToggle, setIsToggle] = useState(false);
-  
-  const [dayStorage, setDayStorage] = useState<dayFormat[]>([])
+
+  const [dayStorage, setDayStorage] = useState<dayFormat[]>([]);
 
   const MONTHS: string[] = [
     "January",
@@ -59,18 +58,24 @@ export default function Home() {
     setCurrentYear(currentDate.getFullYear());
   }, []);
 
-  const[displayZoneValue, setDisplayZoneValue] = useState<string>("");
+  const [displayZoneValue, setDisplayZoneValue] = useState<string>("");
 
   useEffect(() => {
-    if(dayStorage.length == 1){
+    if (dayStorage.length == 1) {
       setDisplayZoneValue(dayStorage[0].fullDate);
+    } else {
+      setDisplayZoneValue("");
     }
-  },[dayStorage])
+  }, [dayStorage]);
 
   //Event handler
   const handleChangeSwitch = () => {
-    console.log("check");
     setIsToggle((prevState) => !prevState);
+  };
+
+  const handleClearButton = () => {
+    setDayStorage([]);
+    setDisplayZoneValue("");
   };
 
   const handleChangeMonthBtn = (type: string) => {
@@ -95,7 +100,6 @@ export default function Home() {
         break;
     }
   };
-
   return (
     <div className="bg-gradient-to-br from-blue-950 to-blue-800 w-screen h-screen flex flex-col justify-center items-center">
       <div className="bg-white w-[500px] h-[500px] rounded-lg shadow-lg shadow-gray-400">
@@ -104,11 +108,24 @@ export default function Home() {
           currentYear={currentYear}
           onChangeMonthBtn={handleChangeMonthBtn}
         />
-        <CalendarDays currentMonth={currentMonth} currentYear={currentYear} dayStorage={dayStorage} setDayStorage={setDayStorage}/>
+        <CalendarDays
+          currentMonth={currentMonth}
+          currentYear={currentYear}
+          dayStorage={dayStorage}
+          setDayStorage={setDayStorage}
+        />
       </div>
       <div className=" w-[500px] flex justify-between mt-3">
-        <p className="w-[430px] h-[50px] bg-white flex justify-center items-center" id="displayZone">{displayZoneValue}</p>
-        <button className="w-[50px] text-lg text-white h-[50px] bg-red-600 flex justify-center items-center hover:bg-white hover:text-red-600">
+        <p
+          className="w-[430px] h-[50px] bg-white text-lg flex justify-center items-center"
+          id="displayZone"
+        >
+          {displayZoneValue}
+        </p>
+        <button
+          onClick={handleClearButton}
+          className="w-[50px] text-lg text-white h-[50px] bg-red-600 flex justify-center items-center hover:bg-white hover:text-red-600"
+        >
           <MdDeleteForever />
         </button>
       </div>

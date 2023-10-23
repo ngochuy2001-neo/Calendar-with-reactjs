@@ -6,8 +6,8 @@ interface dateFormat{
 
 const checkActive = (currentMonth: number, dateCheck: dateFormat, dayStorage: dateFormat[]) =>{
   if (dayStorage.length == 1){
-    const firstDate = new Date(dateCheck.year, dateCheck.month, dateCheck.date);
-    const secondDate = new Date(dateCheck.year, dateCheck.month, dateCheck.date);  
+    const firstDate = new Date(dateCheck.year, dateCheck.month, dateCheck.date).getTime();
+    const secondDate = new Date(dayStorage[0].year, dayStorage[0].month, dayStorage[0].date).getTime();
     if(firstDate == secondDate) {
       return "active"
     }
@@ -16,7 +16,7 @@ const checkActive = (currentMonth: number, dateCheck: dateFormat, dayStorage: da
   const isSameMonth = dateCheck.month == currentMonth
   if(isSameMonth){
     return "" 
-  }
+  } 
   return "inactive" 
 }
 

@@ -39,14 +39,26 @@ interface dayFormat {
 const CalendarDays = ({currentMonth, currentYear, dayStorage, setDayStorage}: CalendarDays) => {
 
   const [renderMonth, setRenderMonth] = useState<dateObjects[]>();
+  
+  const checkExisted = (dayArray: dayReturnFormat[], compareDay: dayReturnFormat) => {
+    for( let i = 0; i < dayArray.length; i ++){
+      const oldDay = new Date(dayArray[0].year, dayArray[0].month, dayArray[0].date);
+      const newDay = new Date(compareDay.year, compareDay.month, compareDay.date);
+      const isSame = oldDay == newDay;
+
+      if(isSame){
+        return true;
+      }
+    }
+    return false
+  }
 
   useEffect(() => {
     setRenderMonth(listingDay(currentMonth, currentYear));
-  },[currentMonth]) 
+  },[currentMonth, dayStorage]) 
 
   const handleDayClick = (dayFormat: dayReturnFormat) => {
     setDayStorage([dayFormat])
-    console.log(dayFormat)
   }
 
   return(
@@ -62,7 +74,7 @@ const CalendarDays = ({currentMonth, currentYear, dayStorage, setDayStorage}: Ca
       </ul>
       <ul className="grid grid-cols-7">
         {renderMonth?.map((value, index) => {
-        const state = checkActive(currentMonth, {date: value.date, month: value.month, year: value.month}, dayStorage);
+        const state = checkActive(currentMonth, {date: value.date, month: value.month, year: value.year}, dayStorage);
         return (
           <Days key={value.fullDate} currentDay={value.date} month={value.month} state={state} year={value.year} fullDate={value.fullDate} handleDayClick={handleDayClick}/>
         )}
