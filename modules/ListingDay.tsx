@@ -1,3 +1,11 @@
+interface dateObjects {
+  date: number,
+  month: number,
+  year: number,
+  fullDate: string,
+  state: string,
+}
+
 const listingDay = (month: number, year: number) => {
     const curMonthFirstDay: number = new Date(year, month, 1).getDay();
     const curMonthLastDay: number = new Date(year, month + 1, 0).getDay();
@@ -6,7 +14,7 @@ const listingDay = (month: number, year: number) => {
 
     let calendarNumbers: number[] = []
 
-    let calendarNumberObjects: object[] = [];
+    let calendarNumberObjects: dateObjects[] = [];
 
     
     for (let i = curMonthFirstDay; i > 0; i--){
@@ -14,9 +22,9 @@ const listingDay = (month: number, year: number) => {
       const isFirstMonth = month == 0;
       calendarNumberObjects.push({
         date: prevMonthLastDate - i + 1,
-        month: month,
+        month: month - 1,
         year: isFirstMonth? year - 1: year,
-        fullDate: `${prevMonthLastDate - i + 1}/${isFirstMonth? 1: month + 1}/${isFirstMonth? year + 1: year}`,
+        fullDate: `${prevMonthLastDate - i + 1}/${isFirstMonth? 1: month}/${isFirstMonth? year + 1: year}`,
         state: 'inactive'
       })
     }
@@ -31,17 +39,17 @@ const listingDay = (month: number, year: number) => {
       })
     }
     for(let i = curMonthLastDay; i < 6; i++){
-      calendarNumbers.push(i - curMonthLastDay + 1);
       const isLastMonth = month == 11;
       calendarNumberObjects.push({
-        date: i,
-        month: month,
+        date: i - curMonthLastDay + 1,
+        month: month + 1,
         year: isLastMonth? year + 1: year,
-        fullDate: `${i - curMonthLastDay + 1}/${isLastMonth? 1: month +1}/${isLastMonth? year + 1: year}`,
+        fullDate: `${i - curMonthLastDay + 1}/${isLastMonth? 1: month +2}/${isLastMonth? year + 1: year}`,
         state: 'inactive'
       })
     }
-    return calendarNumbers;
+    console.log(calendarNumberObjects)
+    return calendarNumberObjects;
 }
 
 export default listingDay;

@@ -1,19 +1,39 @@
 import { useEffect, useState } from "react";
 import listingDay from "../../modules/ListingDay";
+import Days from "./Days";
 interface CalendarDays {
   currentMonth: number;
   currentYear: number;
 }
 
+interface dateObjects {
+  date: number,
+  month: number,
+  year: number,
+  fullDate: string,
+  state: string,
+}
+
+interface dayReturnFormat {
+  date: number, 
+  month: number,
+  year: number,
+  fullDate: string,
+  state: string
+}
+
 const CalendarDays = ({currentMonth, currentYear}: CalendarDays) => {
 
-  const [renderMonth, setRenderMonth] = useState<number[]>();
+  const [renderMonth, setRenderMonth] = useState<dateObjects[]>();
 
   useEffect(() => {
     setRenderMonth(listingDay(currentMonth, currentYear));
   },[currentMonth]) 
 
-  console.log(renderMonth)
+  const handleDayClick = (dayFormat: dayReturnFormat) => {
+    console.log(dayFormat) ;
+  }
+
   return(
     <div className="flex justify-around flex-col">
       <ul className="grid grid-cols-7">
@@ -27,7 +47,7 @@ const CalendarDays = ({currentMonth, currentYear}: CalendarDays) => {
       </ul>
       <ul className="grid grid-cols-7">
         {renderMonth?.map((value, index) => (
-          <li key={index} className="w-[70px] h-[60px] flex items-center justify-center hover:bg-blue-600 hover:text-white">{value}</li>
+          <Days key={value.fullDate} currentDay={value.date} month={value.month} year={value.year} fullDate={value.fullDate} state={value.state} handleDayClick={handleDayClick}/>
         ))}
       </ul>
     </div> 
