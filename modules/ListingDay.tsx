@@ -20,7 +20,7 @@ const listingDay = (month: number, year: number) => {
       const isFirstMonth = month == 0;
       calendarNumberObjects.push({
         date: prevMonthLastDate - i + 1,
-        month: month - 1,
+        month: isFirstMonth? 11 : month - 1,
         year: isFirstMonth? year - 1: year,
         fullDate: `${prevMonthLastDate - i + 1}/${isFirstMonth? 1: month}/${isFirstMonth? year + 1: year}`,
       })
@@ -38,7 +38,7 @@ const listingDay = (month: number, year: number) => {
       const isLastMonth = month == 11;
       calendarNumberObjects.push({
         date: i - curMonthLastDay + 1,
-        month: month + 1,
+        month: isLastMonth? 0: month + 1,
         year: isLastMonth? year + 1: year,
         fullDate: `${i - curMonthLastDay + 1}/${isLastMonth? 1: month +2}/${isLastMonth? year + 1: year}`,
       })

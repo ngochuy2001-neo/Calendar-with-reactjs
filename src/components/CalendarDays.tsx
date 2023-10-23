@@ -7,6 +7,7 @@ interface CalendarDays {
   currentYear: number;
   dayStorage: dayFormat[];
   setDayStorage: (param: dayFormat[]) => void;
+  toggleState: boolean;
 }
 
 interface dateObjects {
@@ -36,7 +37,7 @@ interface dayFormat {
   fullDate: string
 }
 
-const CalendarDays = ({currentMonth, currentYear, dayStorage, setDayStorage}: CalendarDays) => {
+const CalendarDays = ({currentMonth, currentYear, dayStorage, setDayStorage, toggleState}: CalendarDays) => {
 
   const [renderMonth, setRenderMonth] = useState<dateObjects[]>();
   
@@ -58,9 +59,17 @@ const CalendarDays = ({currentMonth, currentYear, dayStorage, setDayStorage}: Ca
   },[currentMonth, dayStorage]) 
 
   const handleDayClick = (dayFormat: dayReturnFormat) => {
-    setDayStorage([dayFormat])
+    if(toggleState){
+      console.log("check");
+      setDayStorage(prev => [...prev, dayFormat])
+      if(dayStorage.length == 2){
+        setDayStorage(prev => [prev[1], prev[2]]);
+      }
+    } else{
+      setDayStorage([dayFormat])
+    }
   }
-
+  console.log(dayStorage)
   return(
     <div className="flex justify-around flex-col">
       <ul className="grid grid-cols-7">

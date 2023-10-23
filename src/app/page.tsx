@@ -63,14 +63,26 @@ export default function Home() {
   useEffect(() => {
     if (dayStorage.length == 1) {
       setDisplayZoneValue(dayStorage[0].fullDate);
+    }else if(dayStorage.length == 2) {
+      const firstDay = new Date(dayStorage[0].year, dayStorage[0].month, dayStorage[0].date);
+      const secondDay = new Date(dayStorage[1].year, dayStorage[1].month, dayStorage[1].date);
+      if (firstDay > secondDay){
+        setDisplayZoneValue(`${dayStorage[1].fullDate} - ${dayStorage[0].fullDate}`);
+      }
+      else{
+        setDisplayZoneValue(`${dayStorage[0].fullDate} - ${dayStorage[1].fullDate}`);
+      }
     } else {
       setDisplayZoneValue("");
     }
+    console.log(dayStorage)
   }, [dayStorage]);
 
   //Event handler
   const handleChangeSwitch = () => {
     setIsToggle((prevState) => !prevState);
+    setDisplayZoneValue("");
+    setDayStorage([]);
   };
 
   const handleClearButton = () => {
@@ -113,6 +125,7 @@ export default function Home() {
           currentYear={currentYear}
           dayStorage={dayStorage}
           setDayStorage={setDayStorage}
+          toggleState={isToggle}
         />
       </div>
       <div className=" w-[500px] flex justify-between mt-3">
