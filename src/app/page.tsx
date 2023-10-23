@@ -20,8 +20,18 @@ const YellowSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
+interface dayFormat {
+  date: number,
+  month: number,
+  year: number,
+  fullDate: string,
+}
+
+
 export default function Home() {
   const [isToggle, setIsToggle] = useState(false);
+  
+  const [dayStorage, setDayStorage] = useState<dayFormat[]>([])
 
   const MONTHS: string[] = [
     "January",
@@ -48,6 +58,14 @@ export default function Home() {
     setCurrentMonth(currentDate.getMonth());
     setCurrentYear(currentDate.getFullYear());
   }, []);
+
+  const[displayZoneValue, setDisplayZoneValue] = useState<string>("");
+
+  useEffect(() => {
+    if(dayStorage.length == 1){
+      setDisplayZoneValue(dayStorage[0].fullDate);
+    }
+  },[dayStorage])
 
   //Event handler
   const handleChangeSwitch = () => {
@@ -86,10 +104,10 @@ export default function Home() {
           currentYear={currentYear}
           onChangeMonthBtn={handleChangeMonthBtn}
         />
-        <CalendarDays currentMonth={currentMonth} currentYear={currentYear} />
+        <CalendarDays currentMonth={currentMonth} currentYear={currentYear} dayStorage={dayStorage} setDayStorage={setDayStorage}/>
       </div>
       <div className=" w-[500px] flex justify-between mt-3">
-        <p className="w-[430px] h-[50px] bg-white "></p>
+        <p className="w-[430px] h-[50px] bg-white flex justify-center items-center" id="displayZone">{displayZoneValue}</p>
         <button className="w-[50px] text-lg text-white h-[50px] bg-red-600 flex justify-center items-center hover:bg-white hover:text-red-600">
           <MdDeleteForever />
         </button>

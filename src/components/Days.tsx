@@ -5,7 +5,6 @@ interface dayReturnFormat {
   month: number,
   year: number,
   fullDate: string,
-  state: string,
 }
 
 interface dayFormat {
@@ -23,10 +22,10 @@ const Days = ({currentDay, month, year, fullDate, state, handleDayClick}: dayFor
   const [isInactive, setIsInactive] = useState<boolean>(false);
   
   useEffect(() => {
-    if(state == ""){
-      setIsInactive(false);
-    }else{
+    if(state == "inactive"){
       setIsInactive(true);
+    } else{
+      setIsInactive(false)
     }
   },[state])
 
@@ -35,14 +34,12 @@ const Days = ({currentDay, month, year, fullDate, state, handleDayClick}: dayFor
       date: currentDay,
       month: month,
       year: year,
-      fullDate: "10/10/2023",
-      state: state
+      fullDate: fullDate,
     });
-    console.log(state)
-    console.log(isInactive)
+    console.log(fullDate)
   }
   return(
-    <li onClick={handleClick} className={`w-[70px] h-[60px] flex items-center justify-center hover:bg-blue-600 hover:text-white ${isInactive? "text-gray-300":""}`}>
+    <li onClick={handleClick} className={`w-[70px] h-[60px] cursor-default flex items-center justify-center hover:bg-blue-600 hover:text-white ${isInactive? "text-gray-300":""}`}>
       {currentDay}
     </li>
   )

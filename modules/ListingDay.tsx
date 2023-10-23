@@ -3,7 +3,6 @@ interface dateObjects {
   month: number,
   year: number,
   fullDate: string,
-  state: string,
 }
 
 const listingDay = (month: number, year: number) => {
@@ -18,14 +17,12 @@ const listingDay = (month: number, year: number) => {
 
     
     for (let i = curMonthFirstDay; i > 0; i--){
-      calendarNumbers.push(prevMonthLastDate - i + 1);
       const isFirstMonth = month == 0;
       calendarNumberObjects.push({
         date: prevMonthLastDate - i + 1,
         month: month - 1,
         year: isFirstMonth? year - 1: year,
         fullDate: `${prevMonthLastDate - i + 1}/${isFirstMonth? 1: month}/${isFirstMonth? year + 1: year}`,
-        state: 'inactive'
       })
     }
     for(let i = 1; i <= curMonthLastDate; i++){
@@ -35,7 +32,6 @@ const listingDay = (month: number, year: number) => {
         month: month,
         year: year,
         fullDate: `${i}/${month + 1}/${year}`,
-        state: ''
       })
     }
     for(let i = curMonthLastDay; i < 6; i++){
@@ -45,10 +41,8 @@ const listingDay = (month: number, year: number) => {
         month: month + 1,
         year: isLastMonth? year + 1: year,
         fullDate: `${i - curMonthLastDay + 1}/${isLastMonth? 1: month +2}/${isLastMonth? year + 1: year}`,
-        state: 'inactive'
       })
     }
-    console.log(calendarNumberObjects)
     return calendarNumberObjects;
 }
 

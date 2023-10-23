@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import listingDay from "../../modules/ListingDay";
 import Days from "./Days";
+import checkActive from "../../modules/CheckActive";
 interface CalendarDays {
   currentMonth: number;
   currentYear: number;
+  dayStorage: dayFormat[];
+  setDayStorage: (param: dayFormat[]) => void;
 }
 
 interface dateObjects {
@@ -11,7 +14,6 @@ interface dateObjects {
   month: number,
   year: number,
   fullDate: string,
-  state: string,
 }
 
 interface dayReturnFormat {
@@ -19,10 +21,22 @@ interface dayReturnFormat {
   month: number,
   year: number,
   fullDate: string,
-  state: string
 }
 
-const CalendarDays = ({currentMonth, currentYear}: CalendarDays) => {
+interface dateFormat {
+  date: number, 
+  month: number,
+  year: number,
+}
+
+interface dayFormat {
+  date: number,
+  month: number,
+  year: number,
+  fullDate: string
+}
+
+const CalendarDays = ({currentMonth, currentYear, dayStorage, setDayStorage}: CalendarDays) => {
 
   const [renderMonth, setRenderMonth] = useState<dateObjects[]>();
 
@@ -31,7 +45,8 @@ const CalendarDays = ({currentMonth, currentYear}: CalendarDays) => {
   },[currentMonth]) 
 
   const handleDayClick = (dayFormat: dayReturnFormat) => {
-    console.log(dayFormat) ;
+    setDayStorage([dayFormat])
+    console.log(dayFormat)
   }
 
   return(
@@ -46,9 +61,12 @@ const CalendarDays = ({currentMonth, currentYear}: CalendarDays) => {
         <li className="w-[70px] flex justify-center items-center h-[50px]">Sar</li>
       </ul>
       <ul className="grid grid-cols-7">
-        {renderMonth?.map((value, index) => (
-          <Days key={value.fullDate} currentDay={value.date} month={value.month} year={value.year} fullDate={value.fullDate} state={value.state} handleDayClick={handleDayClick}/>
-        ))}
+        {renderMonth?.map((value, index) => {
+        const state = checkActive(currentMonth, {date: value.date, month: value.month, year: value.month}, dayStorage);
+        return (
+          <Days key={value.fullDate} currentDay={value.date} month={value.month} state={state} year={value.year} fullDate={value.fullDate} handleDayClick={handleDayClick}/>
+        )}
+        )}
       </ul>
     </div> 
   )
