@@ -60,8 +60,7 @@ const CalendarDays = ({currentMonth, currentYear, dayStorage, setDayStorage, tog
 
   const handleDayClick = (dayFormat: dayReturnFormat) => {
     if(toggleState){
-      console.log("check");
-      setDayStorage(prev => [...prev, dayFormat])
+      setDayStorage(((prev) => [...prev, dayFormat]) as any)
       if(dayStorage.length == 2){
         setDayStorage(prev => [prev[1], prev[2]]);
       }
@@ -69,7 +68,6 @@ const CalendarDays = ({currentMonth, currentYear, dayStorage, setDayStorage, tog
       setDayStorage([dayFormat])
     }
   }
-  console.log(dayStorage)
   return(
     <div className="flex justify-around flex-col">
       <ul className="grid grid-cols-7">

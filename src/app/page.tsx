@@ -75,7 +75,6 @@ export default function Home() {
     } else {
       setDisplayZoneValue("");
     }
-    console.log(dayStorage)
   }, [dayStorage]);
 
   //Event handler
