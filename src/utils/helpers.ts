@@ -59,5 +59,5 @@ export const checkActive = (
   if(isNormalDayInMonth) {
     return dayStyled
   }
-  return "text-blue-300 " + dayStyled
+  return "text-gray-300 " + dayStyled
 };

@@ -213,7 +213,7 @@ export default function Home() {
         </p>
         <button
           onClick={handleClearButton}
-          className="w-[50px] text-lg text-white h-[50px] bg-red-600 flex justify-center items-center hover:bg-white hover:text-red-600"
+          className="w-[50px] text-lg text-gray-300 h-[50px] bg-red-600 flex justify-center items-center hover:bg-white hover:text-red-600"
         >
           <MdDeleteForever />
         </button>
