@@ -50,8 +50,6 @@ export const checkActive = (
         return dayStyled + " bg-red-600 text-white";
       }
     }
-    console.log("check")
-    console.log("dayStorage = " + dayStorage)
     const isActive = dateCheck.getTime() == dayStorage.fromDate.getTime()
     if(isActive){
       return dayStyled + " bg-red-600 text-white";
@@ -61,5 +59,5 @@ export const checkActive = (
   if(isNormalDayInMonth) {
     return dayStyled
   }
-  return dayStyled + " text-gray-300"
+  return "text-blue-300 " + dayStyled
 };

@@ -93,9 +93,9 @@ export default function Home() {
 
   const handleDisplayStorage = (dayStorage: IDayStorage) => {
     if (dayStorage.toDate == null) {
-      return `${dayStorage.fromDate.getDate()}/${dayStorage.fromDate.getMonth()}/${dayStorage.fromDate.getFullYear()}`;
+      return `${dayStorage.fromDate.getDate()}/${dayStorage.fromDate.getMonth() + 1}/${dayStorage.fromDate.getFullYear()}`;
     }
-    return `${dayStorage.fromDate.getDate()}/${dayStorage.fromDate.getMonth()}/${dayStorage.fromDate.getFullYear()} - ${dayStorage.toDate.getDate()}/${dayStorage.toDate.getMonth()}/${dayStorage.toDate.getFullYear()}`;
+    return `${dayStorage.fromDate.getDate()}/${dayStorage.fromDate.getMonth() + 1}/${dayStorage.fromDate.getFullYear()} - ${dayStorage.toDate.getDate()}/${dayStorage.toDate.getMonth()}/${dayStorage.toDate.getFullYear()}`;
   };
 
   const handleChangeSwitch = () => {
@@ -122,14 +122,14 @@ export default function Home() {
       switch (type) {
         case "prev":
           if (isFirstMonth) {
-            setCurrentYear((prevYear) => prevYear - 1);
+            setCurrentYear(currentYear - 1);
             return 11;
           }
           return prevMonth - 1;
           break;
         case "next":
           if (isLastMonth) {
-            setCurrentYear((prevYear) => prevYear + 1);
+            setCurrentYear(currentYear + 1);
             return 0;
           }
           return prevMonth + 1;
