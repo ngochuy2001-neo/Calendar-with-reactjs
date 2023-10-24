@@ -5,7 +5,6 @@ import Switch from "@mui/material/Switch";
 import { alpha, styled } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 import { checkActive, listingDay } from "@/utils/helpers";
-
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { IDayFormat, IDayStorage } from "@/utils/interfaces";
 
@@ -46,22 +45,13 @@ export default function Home() {
     new Date().getFullYear()
   );
   const [daysOfMonth, setDaysOfMonth] = useState<IDayFormat[]>([]);
-  const [displayZoneValue, setDisplayZoneValue] = useState<string | null>("");
-
   useEffect(() => {
     setDaysOfMonth(listingDay(currentMonth, currentYear));
   }, [currentMonth]);
 
   const handleDayClick = (clickedDate: Date) => {
     setDayStorage((prevStorage) => {
-      if (dayStorage == null) {
-        const updatedDayStorage: IDayStorage = {
-          fromDate: clickedDate,
-          toDate: null,
-        };
-        return updatedDayStorage;
-      }
-      if (isToggle) {
+      if (isToggle && dayStorage != null) {
         if (clickedDate < dayStorage.fromDate && prevStorage != null) {
           const updatedDayStorage: IDayStorage = {
             fromDate: clickedDate,
