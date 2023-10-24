@@ -58,9 +58,11 @@ export default function Home() {
             toDate: prevStorage.fromDate,
           };
           return updatedDayStorage;
-        } else if (clickedDate == dayStorage.fromDate) {
+        }
+        if (clickedDate.getTime() == dayStorage.fromDate.getTime() || clickedDate.getTime() == dayStorage.toDate?.getTime()) {
+          const checkDuplicate = clickedDate.getTime() == dayStorage.fromDate.getTime()
           const updatedDayStorage: IDayStorage = {
-            fromDate: clickedDate,
+            fromDate: checkDuplicate? clickedDate : dayStorage.toDate,
             toDate: null,
           };
           return updatedDayStorage;
@@ -191,11 +193,7 @@ export default function Home() {
                 onClick={() => {
                   handleDayClick(new Date(data.year, data.month, data.date));
                 }}
-                className={checkActive(
-                  currentMonth,
-                  new Date(data.year, data.month, data.date),
-                  dayStorage
-                )}
+                className={`hover:bg-red-600 hover:text-white cursor-default flex items-center justify-center w-[50px] h-[50px] ${checkActive(currentMonth, new Date(data.year, data.month, data.date), dayStorage) == "active"? "text-white bg-red-600": ""} ${checkActive(currentMonth, new Date(data.year, data.month, data.date), dayStorage) == "inactive"? " text-gray-400": ""}`}
                 key={index}
               >
                 {data.date}
@@ -213,7 +211,7 @@ export default function Home() {
         </p>
         <button
           onClick={handleClearButton}
-          className="w-[50px] text-lg text-gray-300 h-[50px] bg-red-600 flex justify-center items-center hover:bg-white hover:text-red-600"
+          className="w-[50px] text-lg text-white h-[50px] bg-red-600 flex justify-center items-center hover:bg-white hover:text-red-600"
         >
           <MdDeleteForever />
         </button>

@@ -47,17 +47,17 @@ export const checkActive = (
     if(dayStorage.toDate != null){
       const isActive = dateCheck >= dayStorage.fromDate && dateCheck <= dayStorage.toDate;
       if(isActive){
-        return dayStyled + " bg-red-600 text-white";
+        return "active";
       }
     }
     const isActive = dateCheck.getTime() == dayStorage.fromDate.getTime()
     if(isActive){
-      return dayStyled + " bg-red-600 text-white";
+      return "active";
     }
   }
   const isNormalDayInMonth = dateCheck.getMonth() == currentMonth;
   if(isNormalDayInMonth) {
     return dayStyled
   }
-  return "text-gray-300 " + dayStyled
+  return "inactive"
 };
